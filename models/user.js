@@ -16,12 +16,12 @@ NEWSCHEMA('User').make(function(schema) {
 		// Checks if the user exists
 		if (!model.id) {
 			data.id = UID();
-			data.datecreated = new Date();
+			data.datecreated = F.datetime;
 			users.insert(data).callback(SUCCESS(callback));
 			return;
 		}
 
-		data.dateupdated = new Date();
+		data.dateupdated = F.datetime;
 
 		// We don't need to modify id
 		delete data.id;
