@@ -52,8 +52,8 @@ NEWSCHEMA('User').make(function(schema) {
 
 			if (options.search) {
 				builder.or();
-				builder.search('firstname', search);
-				builder.search('lastname', search);
+				builder.search('firstname', options.search);
+				builder.search('lastname', options.search);
 				builder.end();
 			}
 
