@@ -24,7 +24,7 @@ NEWSCHEMA('User').make(function(schema) {
 		data.dateupdated = F.datetime;
 
 		// We don't need to modify id
-		delete data.id;
+		data.id = undefined;
 
 		users.modify(data).make(function(builder) {
 			builder.where('id', model.id);
