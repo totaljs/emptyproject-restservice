@@ -32,11 +32,6 @@ function json_read(id) {
 	self.$get(options, self.callback());
 }
 
-function json_create() {
-	var self = this;
-	self.$save(self.callback());
-}
-
 function json_save(id) {
 	var self = this;
 
