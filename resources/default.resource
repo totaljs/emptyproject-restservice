@@ -1,1 +1,1 @@
-error-user-404      : User doesn't exist.
+error-users-404      : User doesn't exist.

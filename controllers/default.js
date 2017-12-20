@@ -1,5 +1,5 @@
 exports.install = function() {
-	F.route('/', plain_version);
+	ROUTE('/', plain_version);
 };
 
 function plain_version() {

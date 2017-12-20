@@ -6,46 +6,52 @@ NEWSCHEMA('User').make(function(schema) {
 	schema.define('email', 'Email', true);
 	schema.define('phone', 'Phone');
 
-	schema.setSave(function(error, model, options, callback) {
+	schema.setSave(function($) {
 
 		var users = NOSQL('users');
 
 		// Removes hidden properties of the SchemaBuilder
-		var data = model.$clean();
+		var data = $.model.$clean();
 
 		// Checks if the user exists
-		if (!model.id) {
+		if ($.model.id) {
+
+			data.dateupdated = F.datetime;
+
+			// We don't need to modify id
+			data.id = undefined;
+
+			users.modify(data).backup().make(function(builder) {
+				builder.where('id', $.model.id);
+				builder.callback(SUCCESS($.callback));
+			});
+
+		} else {
+
 			data.id = UID();
 			data.datecreated = F.datetime;
-			users.insert(data).callback(SUCCESS(callback));
-			return;
+			users.insert(data).callback(SUCCESS($.callback));
+
 		}
 
-		data.dateupdated = F.datetime;
-
-		// We don't need to modify id
-		data.id = undefined;
-
-		users.modify(data).make(function(builder) {
-			builder.where('id', model.id);
-			builder.callback(SUCCESS(callback));
-		});
 	});
 
-	schema.setGet(function(error, model, options, callback) {
+	schema.setGet(function($) {
 
 		var users = NOSQL('users');
 
 		// Reads the user
 		users.one().make(function(builder) {
-			builder.where('id', options.id);
-			builder.callback(callback, 'error-user-404');
+			builder.where('id', $.options.id);
+			builder.callback($.callback, 'error-users-404');
 		});
+
 	});
 
-	schema.setQuery(function(error, options, callback) {
+	schema.setQuery(function($) {
 
 		var users = NOSQL('users');
+		var options = $.options;
 
 		// Reads the user
 		users.find().make(function(builder) {
@@ -58,18 +64,20 @@ NEWSCHEMA('User').make(function(schema) {
 			}
 
 			builder.fields('id', 'firstname', 'lastname', 'datecreated');
-			builder.callback(callback);
+			builder.callback($.callback);
 		});
+
 	});
 
-	schema.setRemove(function(error, options, callback) {
+	schema.setRemove(function($) {
 
 		var users = NOSQL('users');
 
 		// Removes the user
-		users.remove().make(function(builder) {
-			builder.where('id', options.id);
-			builder.callback(SUCCESS(callback));
+		users.remove().backup().make(function(builder) {
+			builder.where('id', $.options.id);
+			builder.callback(SUCCESS($.callback));
 		});
+
 	});
 });

@@ -1,17 +1,15 @@
 exports.install = function() {
 
-	// Sets cors for this API
-	F.cors('/api/*', ['get', 'post', 'put', 'delete'], true);
+	// Sets cors for this all API
+	CORS('/api/*', ['get', 'post', 'put', 'delete'], true);
 
-	// Creates routes
-	F.restful('/api/users/', ['*User'], json_query, json_read, json_save, json_delete);
+	// Routes
+	ROUTE('/api/users/',      json_query,   ['*User']);
+	ROUTE('/api/users/{id}/', json_read,    ['*User']);
+	ROUTE('/api/users/',      json_save,    ['*User', 'post']);
+	ROUTE('/api/users/{id}/', json_save,    ['*User', 'put']);
+	ROUTE('/api/users/{id}/', json_delete,  ['*User', 'delete']);
 
-	// Is same as:
-	// F.route('/api/users/',      json_query,   ['*User']);
-	// F.route('/api/users/{id}/', json_read,    ['*User']);
-	// F.route('/api/users/',      json_save,    ['post', '*User']);
-	// F.route('/api/users/{id}/', json_save,    ['put', '*User']);
-	// F.route('/api/users/{id}/', json_delete,  ['delete', '*User']);
 };
 
 function json_query() {
@@ -30,11 +28,6 @@ function json_read(id) {
 	options.id = id;
 
 	self.$get(options, self.callback());
-}
-
-function json_create() {
-	var self = this;
-	self.$save(self.callback());
 }
 
 function json_save(id) {
