@@ -3,8 +3,8 @@ author                          : You company name
 version                         : 1.0.0
 
 // Mail settings
-mail-smtp                       : smtp.yourwebsite.com
-mail-smtp-options               : {"secure":false,"port":25,"user":"","password":"","timeout":10000}
-mail-address-from               : your@yourwebsite.com
-mail-address-reply              : your@yourwebsite.com
-mail-address-copy               :
+mail_smtp                       : smtp.yourwebsite.com
+mail_smtp_options               : {"secure":false,"port":25,"user":"","password":"","timeout":10000}
+mail_address_from               : your@yourwebsite.com
+mail_address_reply              : your@yourwebsite.com
+mail_address_copy               :
