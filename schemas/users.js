@@ -17,7 +17,7 @@ NEWSCHEMA('Users', function(schema) {
 			builder.end();
 		}
 
-		builder.fields('id', 'firstname', 'lastname', 'datecreated');
+		builder.fields('id', 'firstname', 'lastname', 'dtcreated');
 		builder.sort('dtcreated', true);
 		builder.callback($.callback);
 	});
