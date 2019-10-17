@@ -34,7 +34,6 @@ NEWSCHEMA('Users', function(schema) {
 
 	});
 
-
 	schema.setInsert(function($) {
 
 		// Removes hidden properties of the SchemaBuilder
