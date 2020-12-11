@@ -1,1 +1,1 @@
-error-users-404      : User doesn't exist.
+404           : Not found

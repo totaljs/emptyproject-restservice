@@ -7,61 +7,44 @@ NEWSCHEMA('Users', function(schema) {
 
 	schema.setQuery(function($) {
 
-		// Reads the user
 		var builder = NOSQL('users').find();
-
-		if ($.query.search) {
-			builder.or();
-			builder.search('firstname', $.query.search);
-			builder.search('lastname', $.query.search);
-			builder.end();
-		}
-
-		builder.fields('id', 'firstname', 'lastname', 'dtcreated');
-		builder.sort('dtcreated', true);
+		$.query.search && builder.search('search', $.query.search);
+		builder.fields('id,firstname,lastname,dtcreated');
+		builder.sort('dtcreated_desc');
 		builder.callback($.callback);
+
 	});
 
-	schema.setGet(function($) {
-
-		var users = NOSQL('users');
-
+	schema.setRead(function($) {
 		// Reads the user
-		users.one().make(function(builder) {
-			builder.where('id', $.id);
-			builder.callback($.callback, 'error-users-404');
-		});
+		NOSQL('users').one().error(404).where('id', $.id).callback($.callback);
 
 	});
 
-	schema.setInsert(function($) {
+	schema.setInsert(function($, model) {
 
-		// Removes hidden properties of the SchemaBuilder
-		var data = $.clean();
-		data.id = UID();
-		data.dtcreated = NOW;
+		model.id = UID();
+		model.dtcreated = NOW;
+		model.search = (model.firstname + ' ' + model.lastname).toSearch();
 
 		// Inserts data
-		NOSQL('users').insert(data).callback($.done(data.id));
+		NOSQL('users').insert(model).callback($.done(model.id));
+
 	});
 
-	schema.setUpdate(function($) {
+	schema.setUpdate(function($, model) {
 
-		// Removes hidden properties of the SchemaBuilder
-		var data = $.clean();
+		model.dtupdated = NOW;
 
 		// Modifies data
-		NOSQL('users').modify(data).backup().make(function(builder) {
-			builder.where('id', $.id);
-			builder.callback($.done($.id));
-		});
+		NOSQL('users').modify(model).where('id', $.id).callback($.done($.id));
+
 	});
 
 	schema.setRemove(function($) {
+
 		// Removes the user
-		NOSQL('users').remove().backup().make(function(builder) {
-			builder.where('id', $.id);
-			builder.callback($.done($.id));
-		});
+		NOSQL('users').remove().where('id', $.id).callback($.done($.id));
+
 	});
 });
