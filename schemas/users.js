@@ -1,7 +1,7 @@
 NEWSCHEMA('Users', function(schema) {
 
-	schema.define('firstname', 'Capitalize(30)', true);
-	schema.define('lastname', 'Capitalize(30)', true);
+	schema.define('firstname', 'Name(30)', true);
+	schema.define('lastname', 'Name(30)', true);
 	schema.define('email', 'Email', true);
 	schema.define('phone', 'Phone');
 
