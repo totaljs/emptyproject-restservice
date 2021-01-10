@@ -16,6 +16,7 @@ NEWSCHEMA('Users', function(schema) {
 	});
 
 	schema.setRead(function($) {
+
 		// Reads the user
 		NOSQL('users').one().error(404).where('id', $.id).callback($.callback);
 

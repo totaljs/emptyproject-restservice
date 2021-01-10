@@ -1,15 +1,12 @@
-[![Support](https://www.totaljs.com/img/button-support.png)](https://www.totaljs.com/support/)
+# Empty project: REST Service
 
-- [__Live chat with professional support__](https://messenger.totaljs.com)
-- [__HelpDesk with professional support__](https://helpdesk.totaljs.com)
 - [Documentation](https://docs.totaljs.com)
-- [Wiki](https://wiki.totaljs.com)
+- [Join to Telegram](https://t.me/totaljs)
+- [Support](https://www.totaljs.com/support/)
 
-# Total.js: Empty Project - REST Service
+__Instructions__:
 
+- install the latest version of __Total.js framework 4__ from NPM `$ npm install total4`
 - download example
-- open terminal / command-line
-- open app directory
-- install latest version of Total.js from NPM `$ npm install total4`
 - run `$ node index.js`
 - open browser `http://127.0.0.1:8000`

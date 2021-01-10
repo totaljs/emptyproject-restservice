@@ -1,6 +1,6 @@
 {
-	"name": "emptyproject",
-	"description": "Total.js empty project.",
+	"name": "totalproject",
+	"description": "Empty project",
 	"version": "1.0.0",
 	"main": "index.js",
 	"dependencies": {
