@@ -1,7 +1,7 @@
 # Empty project: REST Service
 
 - [Documentation](https://docs.totaljs.com)
-- [Join to Telegram](https://t.me/totaljs)
+- [Join Total.js Telegram](https://t.me/totaljs)
 - [Support](https://www.totaljs.com/support/)
 
 __Instructions__:
